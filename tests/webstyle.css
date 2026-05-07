@@ -1,0 +1,139 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-image: url("img/background.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    font-family: system-ui, 'Segoe UI', 'Roboto', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 2rem;
+}
+
+/* ОБЁРТКА: панель слева + картинка справа, сдвинута правее */
+.dashboard {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 30px;
+    width: 100%;
+    max-width: 1300px;
+    /* Сдвигаем всю группу (панель + картинку) правее */
+    margin-left: 4rem;
+}
+
+/* Панель кнопок — без верхнего отступа */
+.buttons-panel {
+    flex: 1 1 auto;
+    background: transparent;
+    padding: 4rem 2rem 2rem 2rem;
+    margin-top: 0;
+}
+
+.image-slot {
+    position: fixed;
+    top: 6rem;
+    right: 80px;
+}
+.image-slot img {
+    width: 360px;
+    height: auto;
+}
+
+.row {
+    margin-bottom: 2rem;
+}
+
+.row-title {
+    font-weight: 400;
+    font-size: 1.4rem;
+    color: #ffffff;
+    font-style: italic;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.3px;
+    padding-left: 0;
+}
+
+.buttons-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 1rem;
+    overflow-x: auto;
+    padding-bottom: 0.25rem;
+}
+
+.buttons-row::-webkit-scrollbar {
+    height: 5px;
+}
+.buttons-row::-webkit-scrollbar-track {
+    background: #e2e8f0;
+}
+.buttons-row::-webkit-scrollbar-thumb {
+    background: #94a3b8;
+}
+
+.btn {
+    background: #e0d0b7;
+    width: 120px;
+    height: 40px;
+    padding: 0 0.5rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+    font-family: inherit;
+    font-style: italic;
+    color: #0e4a28;
+    cursor: pointer;
+    transition: background 0.1s ease;
+    white-space: nowrap;
+    border-radius: 15px;
+    box-shadow: none;
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-decoration: none;
+}
+
+.btn:hover {
+    background: #eef2ff;
+    border-color: #6b7280;
+}
+
+@media (max-width: 900px) {
+    body {
+        padding: 1.5rem;
+    }
+    .dashboard {
+        flex-wrap: wrap;
+        gap: 24px;
+        margin-left: 1rem; /* на узких экранах меньший сдвиг */
+    }
+    .buttons-panel {
+        padding: 1.5rem;
+    }
+    .image-right {
+        margin-left: 0;
+    }
+    .btn {
+        width: 120px;
+        height: 40px;
+        font-size: 0.85rem;
+        border-radius: 50px;
+    }
+    .buttons-row {
+        gap: 0.8rem;
+    }
+}
