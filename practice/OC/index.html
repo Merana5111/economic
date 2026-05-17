@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Экономика организации | Теоретические аспекты</title>
+    <link rel="stylesheet" href="webstyle.css">
+</head>
+<body>
+
+<div class="dashboard">
+    <div class="image-slot">
+        <img src="img/title_text.png" alt="Экономика темы" title="Экономика организации">
+    </div>
+
+    <div class="buttons-panel">
+        <div class="info-text">
+            <p>Организация как первичное звено отрасли объединяет ресурсы для выпуска продукции, выполнения работ и услуг, обеспечивая экономический рост. Основные средства и нематериальные активы – фундамент производства. Их состояние, обновление и амортизация напрямую влияют на фондоотдачу и конкурентоспособность. Оборотные средства и материальные ресурсы обеспечивают непрерывность цикла. Ускорение оборачиваемости снижает потребность в финансировании и повышает ликвидность. Трудовые ресурсы и производительность труда – главный фактор роста выработки. Рост производительности позволяет увеличить выпуск без расширения штата. Ценообразование, прибыль и рентабельность завершают финансовый цикл. Только покрывая издержки и получая целевую прибыль, предприятие может развиваться и инвестировать.</p>
+        </div>
+
+        <div class="downloads-container">
+            <!-- Отчетность ОС -->
+            <div class="download-card">
+                <span class="label">Отчетность ОС (Основные средства)</span>
+                <button class="download-btn" id="downloadOsBtn">
+                    <span class="badge">Скачать .docx</span>
+                </button>
+            </div>
+            <!-- Практическое занятие (активно) -->
+            <div class="download-card">
+                <span class="label">Практическое занятие</span>
+                <button class="download-btn" id="downloadPracticeBtn">
+                    <span class="badge">Скачать .docx</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        const pathToOsDocx = 'ОТЧЕТНОСТЬ_ОС.docx';
+        const pathToPracticeDocx = 'Практические_задания_ОС.docx';
+
+        function downloadFileByPath(filePath, defaultFilename) {
+            fetch(filePath)
+                .then(response => {
+                    if (!response.ok) throw new Error('Файл не найден');
+                    return response.blob();
+                })
+                .then(blob => {
+                    const link = document.createElement('a');
+                    const url = URL.createObjectURL(blob);
+                    link.href = url;
+                    link.download = defaultFilename;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    URL.revokeObjectURL(url);
+                })
+                .catch(() => {
+                    alert(`Файл не найден: ${filePath}\nПроверьте путь или положите файл в нужную папку.`);
+                });
+        }
+
+        function generateDocx(filename, contentPlainText) {
+            const header = "Документ сформирован в учебных целях\nДата: " + new Date().toLocaleString() + "\n\n";
+            const fullContent = header + contentPlainText;
+            const blob = new Blob([fullContent], { type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            link.href = url;
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        }
+
+        const osBtn = document.getElementById('downloadOsBtn');
+        const practiceBtn = document.getElementById('downloadPracticeBtn');
+
+        if (osBtn) {
+            osBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (pathToOsDocx) {
+                    downloadFileByPath(pathToOsDocx, 'Otchetnost_OS.docx');
+                } else {
+                    generateDocx('Otchetnost_OS.docx', osReportContent);
+                }
+            });
+        }
+
+        if (practiceBtn) {
+            practiceBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (pathToPracticeDocx) {
+                    downloadFileByPath(pathToPracticeDocx, 'Prakticheskoe_zanyatie.docx');
+                } else {
+                    generateDocx('Prakticheskoe_zanyatie.docx', practiceContent);
+                }
+            });
+        }
+    })();
+</script>
+</body>
+</html>

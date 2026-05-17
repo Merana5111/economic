@@ -1,0 +1,198 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-image: url("img/background.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    font-family: system-ui, 'Segoe UI', 'Roboto', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 2rem;
+}
+
+.dashboard {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 30px;
+    width: 100%;
+    max-width: 1300px;
+    margin-left: 4rem;
+    position: relative;
+}
+
+.buttons-panel {
+    flex: 0 0 50%;
+    background: transparent;
+    padding: 5rem 2rem 2rem 2rem;
+    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 25px;
+}
+
+.image-slot {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+}
+
+.image-slot img {
+    width: 900px;
+    height: auto;
+    display: block;
+    user-select: none;
+}
+
+/* Текстовый блок (без фона, ваш абзац не трогали) */
+.info-text {
+    background: transparent;
+    padding: 0;
+    width: 100%;
+}
+
+.info-text p {
+    font-size: 1.3rem;
+    line-height: 1.5;
+    margin-bottom: 1.2rem;
+    color: #1e1c1a;
+    font-weight: 450;
+    text-shadow: 0 0 2px rgba(255,255,200,0.3);
+}
+
+.downloads-container {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    width: 100%;
+}
+
+/* Карточка-строка: label (текст) + кнопка в одной строке */
+.download-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: transparent;
+    border: none;
+    width: 100%;
+}
+
+/* Текст слева (некликабельный) */
+.download-card .label {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: #000;
+    background: transparent;
+    padding: 0;
+}
+
+/* Кнопка скачивания — полностью прозрачная, без фона и границ */
+.download-btn {
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font-family: inherit;
+    transition: 0.2s;
+}
+
+/* Бейдж внутри кнопки */
+.download-btn .badge {
+    display: inline-block;
+    background: #2c5a2e;
+    color: white;
+    padding: 5px 14px;
+    border-radius: 60px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: 0.2s;
+}
+
+.download-btn:hover .badge {
+    background: #1e3a20;
+    transform: scale(1.02);
+}
+
+.download-btn:active .badge {
+    transform: scale(0.98);
+}
+
+/* Отключённая кнопка */
+.download-btn.disabled-btn,
+.download-btn:disabled {
+    cursor: default;
+    pointer-events: none;
+}
+
+.download-btn:disabled .badge {
+    background: #8faa8f;
+    opacity: 0.7;
+}
+
+/* старый класс .btn (не используется, но оставлен) */
+.btn {
+    background: none;
+    width: 200px;
+    height: 48px;
+    padding: 0 1rem;
+    font-size: 1.5rem;
+    font-weight: 400;
+    font-family: inherit;
+    font-style: italic;
+    color: #000;
+    cursor: pointer;
+    white-space: nowrap;
+    border-radius: 15px;
+    text-align: left;
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    text-decoration: none;
+    border: none;
+}
+.btn:hover {
+    transform: scale(1.05);
+}
+
+@media (max-width: 900px) {
+    body {
+        padding: 1.5rem;
+    }
+    .dashboard {
+        flex-wrap: wrap;
+        gap: 24px;
+        margin-left: 1rem;
+    }
+    .buttons-panel {
+        padding: 1.5rem;
+        padding-top: 7rem;
+        gap: 12px;
+        flex: 0 0 100%;
+    }
+    .image-slot img {
+        width: 500px;
+    }
+    .info-text p {
+        font-size: 1.1rem;
+    }
+    .download-card .label {
+        font-size: 1rem;
+    }
+    .download-btn .badge {
+        font-size: 0.75rem;
+        padding: 4px 12px;
+    }
+}
