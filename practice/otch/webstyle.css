@@ -1,0 +1,113 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    position: relative;
+    min-height: 100vh;
+    background: none; /* убираем старый фон */
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("img/background.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: -1;
+}
+
+.dashboard {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 30px;
+    width: 100%;
+    max-width: 1300px;
+    margin-left: 0rem;
+    position: relative;
+}
+
+.buttons-panel {
+    flex: 1 1 auto;
+    background: transparent;
+    padding: 2.8rem 2rem 2rem 2rem;
+    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0px;
+}
+
+.image-slot {
+    position: absolute;
+    top: 0px;
+    left: 58%;
+    transform: translateX(-50%);
+    z-index: 10;
+}
+
+.image-slot img {
+    width: 500px;
+    height: auto;
+    display: block;
+    user-select: none;
+}
+.btn {
+    background: none;
+    width: 200px;
+    height: 48px;
+    font-size: 1.1rem;
+    font-weight: 400;
+    font-family: inherit;
+    color: #000;
+    cursor: pointer;
+    transition: background 0.1s ease;
+    white-space: nowrap;
+    border-radius: 15px;
+    box-shadow: none;
+    text-align: left;
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    text-decoration: none;
+    border: none;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+}
+
+
+
+@media (max-width: 900px) {
+    body {
+        padding: 1.5rem;
+    }
+    .dashboard {
+        flex-wrap: wrap;
+        gap: 24px;
+        margin-left: 1rem;
+    }
+    .buttons-panel {
+        padding: 1.5rem;
+        padding-top: 7rem;
+        gap: 12px;
+    }
+    .image-slot img {
+        width: 500px;
+    }
+    .btn {
+        width: 180px;
+        font-size: 1rem;
+    }
+}

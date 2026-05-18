@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Экономика организации | Теоретические аспекты</title>
+    <link rel="stylesheet" href="webstyle.css">
+</head>
+<body>
+
+<div class="dashboard">
+    <div class="image-slot">
+        <img src="img/title_text.png" alt="Экономика темы" title="Экономика организации">
+    </div>
+
+    <div class="buttons-panel">
+        <div class="info-text">
+            <p>Инвестиции — это вложение денег, ценных  бумаг, имущества или иных активов в проекты, инструменты или бизнес с  целью сохранения капитала и получения прибыли в будущем. Это обмен текущих средств на потенциально большую сумму или актив в будущем, что всегда сопряжено с риском и требует времени.</p>
+            <br></br>
+        </div>
+
+        <div class="downloads-container">
+            <div class="download-card">
+                <span class="label">Практическое занятие</span>
+                <button class="download-btn" id="downloadOsBtn">
+                    <span class="badge">(СКАЧАТЬ)</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        const pathToOsDocx = 'Практические_задания.docx';
+
+        function downloadFileByPath(filePath, defaultFilename) {
+            fetch(filePath)
+                .then(response => {
+                    if (!response.ok) throw new Error('Файл не найден');
+                    return response.blob();
+                })
+                .then(blob => {
+                    const link = document.createElement('a');
+                    const url = URL.createObjectURL(blob);
+                    link.href = url;
+                    link.download = defaultFilename;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    URL.revokeObjectURL(url);
+                })
+                .catch(() => {
+                    alert(`Файл не найден: ${filePath}\nПроверьте путь или положите файл в нужную папку.`);
+                });
+        }
+
+        function generateDocx(filename, contentPlainText) {
+            const header = "Документ сформирован в учебных целях\nДата: " + new Date().toLocaleString() + "\n\n";
+            const fullContent = header + contentPlainText;
+            const blob = new Blob([fullContent], { type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            link.href = url;
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        }
+
+        const osBtn = document.getElementById('downloadOsBtn');
+        const practiceBtn = document.getElementById('downloadPracticeBtn');
+
+        if (osBtn) {
+            osBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (pathToOsDocx) {
+                    downloadFileByPath(pathToOsDocx, 'Практическое занятие.docx');
+                } else {
+                    generateDocx('Практическое занятие.docx', osReportContent);
+                }
+            });
+        }
+
+        if (practiceBtn) {
+            practiceBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (pathToPracticeDocx) {
+                    downloadFileByPath(pathToPracticeDocx, 'Prakticheskoe_zanyatie.docx');
+                } else {
+                    generateDocx('Prakticheskoe_zanyatie.docx', practiceContent);
+                }
+            });
+        }
+    })();
+</script>
+</body>
+</html>

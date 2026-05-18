@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Экономика организации | Теоретические аспекты</title>
+    <link rel="stylesheet" href="webstyle.css">
+</head>
+<body>
+
+<div class="dashboard">
+    <div class="image-slot">
+        <img src="img/title_text.png" alt="Экономика темы" title="Экономика организации">
+    </div>
+
+    <div class="buttons-panel">
+        <div class="info-text">
+            <p>Цена, прибыль и рентабельность — ключевые экономические показатели эффективности бизнеса. Цена — сумма продажи товара, прибыль — абсолютная разница между выручкой и затратами, а рентабельность — относительный показатель, демонстрирующий эффективность использования ресурсов (сколько прибыли приносит 1 рубль затрат или активов), часто  измеряемый в процентах.</p>
+            <br></br>
+        </div>
+
+        <div class="downloads-container">
+            <!-- Отчетность 1 -->
+            <div class="download-card">
+                <span class="label">Практическое занятие с использованием отчетности предприятия 1</span>
+                <button class="download-btn" id="downloadReport1Btn">
+                    <span class="badge">(СКАЧАТЬ)</span>
+                </button>
+            </div>
+            <!-- Отчетность 2 -->
+            <div class="download-card">
+                <span class="label">Практическое занятие с использованием отчетности предприятия 2</span>
+                <button class="download-btn" id="downloadReport2Btn">
+                    <span class="badge">(СКАЧАТЬ)</span>
+                </button>
+            </div>
+            <!-- Практическое занятие -->
+            <div class="download-card">
+                <span class="label">Практические задания</span>
+                <button class="download-btn" id="downloadPracticeBtn">
+                    <span class="badge">(СКАЧАТЬ)</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        const pathToReport1 = 'ОТЧЕТНОСТЬ1.docx';
+        const pathToReport2 = 'Отчетность2.docx';
+        const pathToPractice = 'Практические_задания.docx';
+
+        function downloadFileByPath(filePath, defaultFilename) {
+            fetch(filePath)
+                .then(response => {
+                    if (!response.ok) throw new Error('Файл не найден');
+                    return response.blob();
+                })
+                .then(blob => {
+                    const link = document.createElement('a');
+                    const url = URL.createObjectURL(blob);
+                    link.href = url;
+                    link.download = defaultFilename;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    URL.revokeObjectURL(url);
+                })
+                .catch(() => {
+                    alert(`Файл не найден: ${filePath}\nПроверьте путь или положите файл в нужную папку.`);
+                });
+        }
+
+        // Функция генерации DOCX на лету (запасной вариант)
+        function generateDocx(filename, contentPlainText) {
+            const header = "Документ сформирован в учебных целях\nДата: " + new Date().toLocaleString() + "\n\n";
+            const fullContent = header + contentPlainText;
+            const blob = new Blob([fullContent], { type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            link.href = url;
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        }
+
+
+        // Получаем кнопки
+        const report1Btn = document.getElementById('downloadReport1Btn');
+        const report2Btn = document.getElementById('downloadReport2Btn');
+        const practiceBtn = document.getElementById('downloadPracticeBtn');
+
+        if (report1Btn) {
+            report1Btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (pathToReport1) {
+                    downloadFileByPath(pathToReport1, 'Отчетность1.docx');
+                } else {
+                    generateDocx('Отчетность1.docx', report1Content);
+                }
+            });
+        }
+
+        if (report2Btn) {
+            report2Btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (pathToReport2) {
+                    downloadFileByPath(pathToReport2, 'Отчетность2.docx');
+                } else {
+                    generateDocx('Отчетность2.docx', report2Content);
+                }
+            });
+        }
+
+        if (practiceBtn) {
+            practiceBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (pathToPractice) {
+                    downloadFileByPath(pathToPractice, 'Практические_задания.docx');
+                } else {
+                    generateDocx('Практические_задания.docx', practiceContent);
+                }
+            });
+        }
+    })();
+</script>
+</body>
+</html>
