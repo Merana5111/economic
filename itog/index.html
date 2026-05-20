@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Экономика организации | Теоретические аспекты</title>
+    <link rel="stylesheet" href="webstyle.css">
+</head>
+<body>
+<a href="../index.html" class="scroll-to-top" aria-label="Наверх">
+    <img src="img/Arrow1.png">
+</a>
+<div class="dashboard">
+    <div class="image-slot">
+        <img src="img/title_text.png" alt="Экономика темы" title="Экономика организации">
+    </div>
+
+    <div class="buttons-panel">
+        <div class="info-text">
+            <p>Итоговая работа — это форма проверки знаний и практических навыков, призванная оценить, насколько успешно вы усвоили учебный материал за определенный период.</p>
+            <br></br>
+        </div>
+
+        <div class="downloads-container">
+            <div class="download-card">
+                <span class="label">Рабочая тетрадь ЭД-22</span>
+                <button class="download-btn" id="downloadOsBtn">
+                    <span class="badge">(СКАЧАТЬ)</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        const pathToOsDocx = 'раб_тетрадь.docx';
+
+        function downloadFileByPath(filePath, defaultFilename) {
+            fetch(filePath)
+                .then(response => {
+                    if (!response.ok) throw new Error('Файл не найден');
+                    return response.blob();
+                })
+                .then(blob => {
+                    const link = document.createElement('a');
+                    const url = URL.createObjectURL(blob);
+                    link.href = url;
+                    link.download = defaultFilename;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    URL.revokeObjectURL(url);
+                })
+                .catch(() => {
+                    alert(`Файл не найден: ${filePath}\nПроверьте путь или положите файл в нужную папку.`);
+                });
+        }
+
+        function generateDocx(filename, contentPlainText) {
+            const header = "Документ сформирован в учебных целях\nДата: " + new Date().toLocaleString() + "\n\n";
+            const fullContent = header + contentPlainText;
+            const blob = new Blob([fullContent], { type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            link.href = url;
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        }
+
+        const osBtn = document.getElementById('downloadOsBtn');
+        const practiceBtn = document.getElementById('downloadPracticeBtn');
+
+        if (osBtn) {
+            osBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (pathToOsDocx) {
+                    downloadFileByPath(pathToOsDocx, 'раб_тетрадь.docx');
+                } else {
+                    generateDocx('раб_тетрадь.docx', osReportContent);
+                }
+            });
+        }
+
+        if (practiceBtn) {
+            practiceBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (pathToPracticeDocx) {
+                    downloadFileByPath(pathToPracticeDocx, 'Prakticheskoe_zanyatie.docx');
+                } else {
+                    generateDocx('Prakticheskoe_zanyatie.docx', practiceContent);
+                }
+            });
+        }
+    })();
+</script>
+</body>
+</html>
