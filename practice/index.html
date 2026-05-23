@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Экономика темы</title>
+    <link rel="stylesheet" href="webstyle.css">
+</head>
+<body>
+<a href="../index.html" class="scroll-to-top" aria-label="Наверх">
+    <img src="img/Arrow1.png">
+</a>
+<div class="dashboard">
+    <div class="image-slot">
+        <img src="img/title_text.png" alt="" title="Ваша картинка">
+    </div>
+
+    <div class="buttons-panel">
+        <a href="otch/index.html" class="btn">Отчетность промышленной организации</a>
+        <a href="OR/index.html" class="btn">Организация и нематериальные активы</a>
+        <a href="OC/index.html" class="btn">Основные средства организации и нематериальные активы</a>
+        <a href="OBC/index.html" class="btn">Оборотные средства организации и материальные ресурсы</a>
+        <a href="TV/index.html" class="btn">Трудовые ресурсы организации. Производительность труда</a>
+        <a href="ZP/index.html" class="btn">Оплата труда работников организации</a>
+        <a href="IZ/index.html" class="btn">Издержки и себестоимость продукции (работ, услуг)</a>
+        <a href="DP/index.html" class="btn">Ценообразование. Доходы, прибыль и рентабельность</a>
+        <a href="PR/index.html" class="btn">Планирование в организации. Производственная программа</a>
+        <a href="IN/index.html" class="btn">Инвестиционная деятельность организации</a>
+        <a href="#" class="btn" id="practiceDownloadLink">Практическиe задания и решения к зачетному занятию</a>
+
+    </div>
+</div>
+
+<script>
+
+    const PRACTICE_DOCX_PATH = 'ЭКОНОМИКА_ЗАДАЧИ_2025_ОКР1_6e953e46_e223_4919_a8a0_87924188213d.docx';
+
+    const DOWNLOAD_FILENAME = 'ЭКОНОМИКА_ЗАДАЧИ_2025_ОКР1_6e953e46_e223_4919_a8a0_87924188213d.docx';
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const downloadBtn = document.getElementById('practiceDownloadLink');
+
+        if (downloadBtn) {
+            downloadBtn.addEventListener('click', function(event) {
+                event.preventDefault();
+
+                const tempLink = document.createElement('a');
+                tempLink.href = PRACTICE_DOCX_PATH;
+                tempLink.download = DOWNLOAD_FILENAME;
+
+                document.body.appendChild(tempLink);
+                tempLink.click();
+                document.body.removeChild(tempLink);
+            });
+        } else {
+            console.error('Не найден элемент кнопки с id="practiceDownloadLink"');
+        }
+    });
+</script>
+
+</body>
+</html>
