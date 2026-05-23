@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Экономика организации | Теоретические аспекты</title>
+    <link rel="stylesheet" href="webstyle.css">
+</head>
+<body>
+
+<div class="dashboard">
+    <div class="image-slot">
+        <img src="img/title_text.png" alt="Экономика темы" title="Экономика организации">
+    </div>
+
+    <div class="buttons-panel">
+        <div class="info-text">
+            <p>Оборотные средства - часть средств производства т.е. предмета труда, которые однократно участвуют в производственном процессе, полностью переносят свою стоимость на стоимость готовой продукции и восстанавливаются в конце каждого производственного цикла.</p>
+            <br></br>
+        </div>
+
+        <div class="downloads-container">
+            <div class="download-card">
+                <span class="label">Практические задания с использованием отчетности</span>
+                <button class="download-btn" id="downloadOsBtn">
+                    <span class="badge">(СКАЧАТЬ)</span>
+                </button>
+            </div>
+            <div class="download-card">
+                <span class="label">Практическое занятие</span>
+                <button class="download-btn" id="downloadPracticeBtn">
+                    <span class="badge">(СКАЧАТЬ)</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        const pathToOsDocx = 'Работа_с_отчетностью_ОБС.docx';
+        const pathToPracticeDocx = 'Практические_задания_ОбС.docx';
+
+        function downloadFileByPath(filePath, defaultFilename) {
+            fetch(filePath)
+                .then(response => {
+                    if (!response.ok) throw new Error('Файл не найден');
+                    return response.blob();
+                })
+                .then(blob => {
+                    const link = document.createElement('a');
+                    const url = URL.createObjectURL(blob);
+                    link.href = url;
+                    link.download = defaultFilename;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    URL.revokeObjectURL(url);
+                })
+                .catch(() => {
+                    alert(`Файл не найден: ${filePath}\nПроверьте путь или положите файл в нужную папку.`);
+                });
+        }
+
+        function generateDocx(filename, contentPlainText) {
+            const header = "Документ сформирован в учебных целях\nДата: " + new Date().toLocaleString() + "\n\n";
+            const fullContent = header + contentPlainText;
+            const blob = new Blob([fullContent], { type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            link.href = url;
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        }
+
+        const osBtn = document.getElementById('downloadOsBtn');
+        const practiceBtn = document.getElementById('downloadPracticeBtn');
+
+        if (osBtn) {
+            osBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (pathToOsDocx) {
+                    downloadFileByPath(pathToOsDocx, 'Работа_с_отчетностью_ОБС.docx');
+                } else {
+                    generateDocx('Работа_с_отчетностью_ОБС.docx', osReportContent);
+                }
+            });
+        }
+
+        if (practiceBtn) {
+            practiceBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (pathToPracticeDocx) {
+                    downloadFileByPath(pathToPracticeDocx, 'Практические_задания_ОбС.docx');
+                } else {
+                    generateDocx('\Практические_задания_ОбС.docx', practiceContent);
+                }
+            });
+        }
+    })();
+</script>
+</body>
+</html>
